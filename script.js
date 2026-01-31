@@ -1,6 +1,7 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
+let typingInterval; // Proměnná pro ovládání efektu psaní
 
-// Kopírování
+// 1. Logika pro kopírování do schránky
 document.getElementById('copyBtn').addEventListener('click', () => {
     const text = document.getElementById('aiResponse').innerText;
     navigator.clipboard.writeText(text);
@@ -9,14 +10,16 @@ document.getElementById('copyBtn').addEventListener('click', () => {
     setTimeout(() => btn.innerText = "Copy", 2000);
 });
 
-// Vymazání
+// 2. Logika pro vymazání (Clear) - teď už i zastaví psaní!
 document.getElementById('clearBtn').addEventListener('click', () => {
+    clearTimeout(typingInterval); // ZASTAVÍ probíhající psaní
     document.getElementById('codeInput').value = "";
-    document.getElementById('aiResponse').innerText = "Waiting for code...";
-    document.getElementById('aiResponse').style.color = "#f8fafc";
+    const responseBox = document.getElementById('aiResponse');
+    responseBox.innerText = "Waiting for code...";
+    responseBox.style.color = "#f8fafc";
 });
 
-// Hlavní akce
+// 3. Hlavní funkce Ask Buddy
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
@@ -34,6 +37,9 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
         else return;
     }
+
+    // Pokud už AI něco píše, zastavíme to před novým dotazem
+    clearTimeout(typingInterval);
 
     const prompts = {
         explain: "Explain this code simply: ",
@@ -71,7 +77,8 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             if (i < aiText.length) {
                 responseBox.innerText += aiText.charAt(i);
                 i++;
-                setTimeout(typeWriter, 5);
+                // Uložíme interval do proměnné, abychom ho mohli vypnout
+                typingInterval = setTimeout(typeWriter, 5); 
             }
         }
         typeWriter();
