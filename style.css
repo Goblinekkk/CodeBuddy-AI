@@ -7,6 +7,8 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -18,7 +20,6 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
     padding: 20px;
 }
 
@@ -32,9 +33,10 @@ body {
     width: 100%;
     max-width: 450px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
-header h1 { text-align: center; font-size: 1.6rem; margin-bottom: 5px; }
+header h1 { font-size: 1.8rem; margin-bottom: 5px; }
 header h1 span { color: var(--accent); }
 
 textarea {
@@ -45,7 +47,7 @@ textarea {
     border-radius: 20px;
     color: #fff;
     padding: 15px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     font-family: 'JetBrains Mono', monospace;
     outline: none;
     resize: none;
@@ -60,7 +62,6 @@ textarea:focus { border-color: var(--accent); }
     margin-bottom: 25px; 
 }
 
-/* KULATÝ SELECT V KLIDOVÉM STAVU */
 select {
     width: 100%;
     background: rgba(255, 255, 255, 0.1);
@@ -92,7 +93,7 @@ button {
     animation: pulse 2s infinite;
 }
 
-button:hover { transform: scale(1.02); filter: brightness(1.1); }
+button:active { transform: scale(0.98); }
 
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
@@ -108,8 +109,7 @@ button:hover { transform: scale(1.02); filter: brightness(1.1); }
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     line-height: 1.6;
-    /* OPRAVA ZALAMOVÁNÍ */
-    white-space: pre-wrap !important; 
+    text-align: left;
+    white-space: pre-wrap !important;
     word-wrap: break-word !important;
-    display: block !important;
 }
