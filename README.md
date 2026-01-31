@@ -1,23 +1,39 @@
-# 🤖 CodeBuddy AI
-A sleek, minimalist AI Coding Assistant interface designed for quick code analysis, debugging, and refactoring tips.
+# 🦉 CodeBuddy AI
+
+CodeBuddy AI is a lightning-fast, minimalist web assistant for developers. Powered by **Llama 3.3** via Groq's LPU inference engine, it helps you explain, debug, and generate code in seconds.
+
+
 
 ## ✨ Features
-* **Modern UI:** Built with a stylish Glassmorphism design.
-* **Code Explanation:** Get instant insights into what your code snippets do.
-* **Bug Detection:** Identify potential logical errors and syntax issues.
-* **Refactoring Tips:** Learn how to write cleaner, more efficient code.
-* **Responsive:** Works perfectly on both desktop and mobile.
 
-## 🚀 Technologies Used
-* **HTML5** - Semantic structure.
-* **CSS3** - Glassmorphism effects and custom animations.
-* **JavaScript (ES6)** - Dynamic UI updates and typing simulation.
-* **Google Fonts** - JetBrains Mono for that developer feel.
+- ⚡ **Ultra-fast response:** Powered by Groq for near-instant code generation.
+- 🔍 **Multiple Modes:**
+  - **Explain:** Get a plain-English breakdown of complex logic.
+  - **Debug:** Find bugs and logical errors instantly.
+  - **Refactor:** Modernize your code and improve readability.
+  - **Generate:** Write entire functions or scripts from a simple prompt.
+- 📱 **Mobile First:** Designed with a beautiful "Glassmorphism" UI that works perfectly on phones.
+- 📋 **Utility Tools:** One-click copy to clipboard and instant clear function.
 
-## 🛠️ How to Use
-1. Paste your code snippet into the terminal-style textarea.
-2. Select an action (Explain, Debug, or Refactor) from the dropdown menu.
-3. Click **"Ask Buddy"** and watch the AI process your request in real-time.
+## 🛠️ Technologies Used
+
+- **Frontend:** HTML5, CSS3 (Custom Glassmorphism design)
+- **Logic:** Vanilla JavaScript (ES6+)
+- **AI Engine:** Groq API (Llama 3.3 70B Model)
+
+## 🚀 How to Use
+
+1. **Clone the repository** or download the files.
+2. **Open `index.html`** in any modern web browser.
+3. **Enter your Groq API Key** when prompted (your key is saved locally in your browser).
+4. **Paste your code** and let Buddy do the work!
 
 ---
-Built with ⚡ by Goblinekkk
+
+## 📸 Preview
+
+*The app features a sleek dark mode with an animated "pulse" button and a typewriter effect for AI responses.*
+
+## 🔒 Privacy
+
+Your API Key is stored only in your browser's `localStorage`. It is never sent to any server other than the official Groq API.
