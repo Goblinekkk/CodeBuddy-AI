@@ -1,69 +1,126 @@
 :root {
     --bg-color: #0f172a;
-    --accent: #38bdf8;
+    --accent: #38bdf8; /* Tuhle barvu miluju, ale klidně si ji změň */
     --text: #f8fafc;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Pro iOS, aby to při kliku nedělalo ten divný čtverec */
 }
 
 body {
-    background: radial-gradient(circle at top right, #1e293b, #0f172a);
+    background: radial-gradient(circle at top, #1e293b, #0f172a);
     color: var(--text);
     font-family: 'Inter', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Aby na mobilu nebyl obsah hned u horního okraje */
     min-height: 100vh;
     margin: 0;
+    padding: 20px;
 }
 
 .glass-container {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Nutné pro Safari na iOS */
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 2rem;
-    width: 90%;
-    max-width: 800px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border-radius: 30px; /* Pořádně zakulacené rohy */
+    padding: 25px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-h1 span { color: var(--accent); }
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 25px;
+}
 
 textarea {
     width: 100%;
-    height: 200px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #334155;
-    border-radius: 10px;
-    color: #94a3b8;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(56, 189, 248, 0.2);
+    border-radius: 20px; /* Zakulacený textarea */
+    color: #fff;
     font-family: 'JetBrains Mono', monospace;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 15px;
+    margin-bottom: 15px;
     resize: none;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: var(--accent);
 }
 
 .controls {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    flex-direction: column; /* Na mobilu pod sebou */
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+select {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 15px; /* Zakulacený výběr */
+    font-size: 16px; /* Prevence zoomování na iOS při kliku */
+    outline: none;
 }
 
 button {
     background: var(--accent);
     color: #0f172a;
     border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
+    padding: 15px;
+    border-radius: 50px; /* Totálně "pill" design tlačítka */
     font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
 }
 
-button:hover { transform: translateY(-2px); opacity: 0.9; }
+button:active {
+    transform: scale(0.95); /* Efekt zmáčknutí na dotyk */
+    box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2);
+}
 
 .output-area {
-    background: rgba(56, 189, 248, 0.05);
-    border-left: 4px solid var(--accent);
-    padding: 1rem;
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 15px;
+    min-height: 100px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
+#responseTitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
