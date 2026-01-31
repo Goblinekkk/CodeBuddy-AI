@@ -1,35 +1,48 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
 
-// Registrace Service Workeru pro offline režim
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
 }
 
-// Hlasové zadávání
+// Voice Recognition
 const voiceBtn = document.getElementById('voiceBtn');
-const recognition = window.SpeechRecognition || window.webkitSpeechRecognition ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
 if (recognition) {
-    recognition.lang = 'cs-CZ';
+    recognition.lang = 'en-US'; // Switched to English
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
     voiceBtn.addEventListener('click', () => {
-        recognition.start();
-        voiceBtn.innerText = "🛑";
+        try {
+            recognition.start();
+            voiceBtn.innerText = "🛑";
+            voiceBtn.style.background = "#ef4444";
+        } catch (e) {
+            recognition.stop();
+        }
     });
+
     recognition.onresult = (event) => {
         document.getElementById('codeInput').value = event.results[0][0].transcript;
-        voiceBtn.innerText = "🎤";
     };
-    recognition.onend = () => voiceBtn.innerText = "🎤";
+
+    recognition.onend = () => {
+        voiceBtn.innerText = "🎤";
+        voiceBtn.style.background = "var(--accent)";
+    };
 } else {
     voiceBtn.style.display = 'none';
 }
 
-// Historie dotazů
+// History Logic
 function updateHistory(text) {
     let history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
-    if (!history.includes(text)) {
-        history.unshift(text);
+    const shortText = text.trim().substring(0, 50);
+    if (!history.includes(shortText) && shortText.length > 0) {
+        history.unshift(shortText);
         if (history.length > 5) history.pop();
         localStorage.setItem('buddy_history', JSON.stringify(history));
         renderHistory();
@@ -48,7 +61,7 @@ function renderHistory() {
 }
 renderHistory();
 
-// Kopírování a mazání
+// UI Buttons
 document.getElementById('copyBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
     document.getElementById('copyBtn').innerText = "Copied!";
@@ -61,25 +74,24 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     document.getElementById('aiResponse').innerText = "Waiting for mission...";
 });
 
-// Hlavní dotaz
+// Main Request
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
     const responseBox = document.getElementById('aiResponse');
 
     if (!code.trim()) return;
-    
     updateHistory(code);
     
     let apiKey = localStorage.getItem('buddy_api_key');
     if (!apiKey) {
-        apiKey = prompt("Groq API Key:");
+        apiKey = prompt("Enter Groq API Key:");
         if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
         else return;
     }
 
     clearTimeout(typingInterval);
-    responseBox.innerText = "Writing... ✍️";
+    responseBox.innerText = "Buddy is thinking... 🧠";
 
     try {
         const response = await fetch(API_URL, {
@@ -87,8 +99,8 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy. Precise English response." },
-                    { role: "user", content: action + ": " + code }
+                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Always respond in English. Be concise and professional." },
+                    { role: "user", content: `Please ${action} this: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
             })
