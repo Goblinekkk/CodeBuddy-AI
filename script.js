@@ -1,7 +1,6 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
 
-// Kopírování
 document.getElementById('copyBtn').addEventListener('click', () => {
     const text = document.getElementById('aiResponse').innerText;
     navigator.clipboard.writeText(text);
@@ -10,7 +9,6 @@ document.getElementById('copyBtn').addEventListener('click', () => {
     setTimeout(() => btn.innerText = "Copy", 2000);
 });
 
-// Vymazání a stopka
 document.getElementById('clearBtn').addEventListener('click', () => {
     clearTimeout(typingInterval);
     document.getElementById('codeInput').value = "";
@@ -19,7 +17,6 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     responseBox.style.color = "#f8fafc";
 });
 
-// Hlavní akce
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
