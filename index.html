@@ -11,21 +11,29 @@
     <div class="glass-container">
         <header>
             <h1>CodeBuddy <span>AI</span></h1>
-            <p style="text-align:center; opacity:0.6;">Your AI pair programmer</p>
+            <p style="text-align:center; opacity:0.6; margin-bottom: 20px;">Your AI pair programmer</p>
         </header>
 
         <main>
             <textarea id="codeInput" placeholder="// Paste your code here..."></textarea>
+            
             <div class="controls">
                 <select id="actionSelect">
                     <option value="explain">Explain code</option>
                     <option value="debug">Find bugs</option>
                     <option value="refactor">Refactor code</option>
                 </select>
-                <button id="runBtn">Ask Buddy</button>
+                <div class="button-group">
+                    <button id="runBtn">Ask Buddy</button>
+                    <button id="clearBtn" class="secondary-btn">Clear</button>
+                </div>
             </div>
 
             <div class="output-area">
+                <div class="output-header">
+                    <span>Response:</span>
+                    <button id="copyBtn" class="copy-btn">Copy</button>
+                </div>
                 <div id="aiResponse">Waiting for code...</div>
             </div>
         </main>
