@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="CodeBuddy-AI-Logo.png">
+    
     <link rel="icon" type="image/png" href="CodeBuddy-AI-Logo.png">
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -26,6 +35,7 @@
                     <option value="refactor">Refactor code</option>
                     <option value="generate">Generate code (Write for me)</option>
                 </select>
+                
                 <div class="button-group">
                     <button id="runBtn">Ask Buddy</button>
                     <button id="clearBtn" class="secondary-btn">Clear</button>
@@ -41,6 +51,7 @@
             </div>
         </main>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
