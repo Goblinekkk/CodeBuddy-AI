@@ -15,13 +15,14 @@
         </header>
 
         <main>
-            <textarea id="codeInput" placeholder="// Paste your code here..."></textarea>
+            <textarea id="codeInput" placeholder="// Paste code or type a request (e.g., 'Write a Snake game in Python')"></textarea>
             
             <div class="controls">
                 <select id="actionSelect">
                     <option value="explain">Explain code</option>
                     <option value="debug">Find bugs</option>
                     <option value="refactor">Refactor code</option>
+                    <option value="generate">Generate code (Write for me)</option>
                 </select>
                 <div class="button-group">
                     <button id="runBtn">Ask Buddy</button>
@@ -34,7 +35,7 @@
                     <span>Response:</span>
                     <button id="copyBtn" class="copy-btn">Copy</button>
                 </div>
-                <div id="aiResponse">Waiting for code...</div>
+                <div id="aiResponse">Waiting for mission...</div>
             </div>
         </main>
     </div>
