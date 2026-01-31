@@ -89,10 +89,12 @@ button:hover {
     padding: 15px;
     border-radius: 15px;
     min-height: 50px;
-    /* FIX PRO ZALAMOVÁNÍ */
-    white-space: pre-wrap; 
-    word-wrap: break-word;
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     line-height: 1.5;
+    
+    /* TOHLE JE KLÍČOVÉ: */
+    white-space: pre-wrap !important; 
+    word-break: break-word !important;
+    display: block !important;
 }
