@@ -20,4 +20,4 @@ A sleek, minimalist AI Coding Assistant interface designed for quick code analys
 3. Click **"Ask Buddy"** and watch the AI process your request in real-time.
 
 ---
-Built with ⚡ by [Your Name or Username]
+Built with ⚡ by Goblinekkk
