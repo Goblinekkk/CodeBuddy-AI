@@ -33,10 +33,9 @@ body {
     width: 100%;
     max-width: 450px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-    text-align: center;
 }
 
-header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+header h1 { text-align: center; font-size: 1.8rem; }
 header h1 span { color: var(--accent); }
 
 textarea {
@@ -47,7 +46,7 @@ textarea {
     border-radius: 20px;
     color: #fff;
     padding: 15px;
-    margin: 20px 0;
+    margin-bottom: 20px;
     font-family: 'JetBrains Mono', monospace;
     outline: none;
     resize: none;
@@ -60,6 +59,11 @@ textarea:focus { border-color: var(--accent); }
     flex-direction: column; 
     gap: 12px; 
     margin-bottom: 25px; 
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
 }
 
 select {
@@ -90,15 +94,42 @@ button {
     border-radius: 20px;
     font-size: 16px;
     transition: all 0.3s ease;
+}
+
+#runBtn {
+    flex: 2;
     animation: pulse 2s infinite;
 }
 
-button:active { transform: scale(0.98); }
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    flex: 1;
+}
 
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
     70% { box-shadow: 0 0 0 15px rgba(56, 189, 248, 0); }
     100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.copy-btn {
+    background: transparent !important;
+    border: 1px solid var(--accent) !important;
+    color: var(--accent) !important;
+    padding: 4px 12px !important;
+    font-size: 12px !important;
+    border-radius: 10px !important;
+    cursor: pointer;
 }
 
 #aiResponse {
@@ -109,7 +140,7 @@ button:active { transform: scale(0.98); }
     font-family: 'JetBrains Mono', monospace;
     font-size: 14px;
     line-height: 1.6;
-    text-align: left;
-    white-space: pre-wrap !important;
+    white-space: pre-wrap !important; 
     word-wrap: break-word !important;
+    display: block !important;
 }
