@@ -1,38 +1,27 @@
 # 🦉 CodeBuddy AI
+**The ultimate pocket-sized AI developer tool for mobile and web.**
 
-**CodeBuddy AI** is a lightning-fast, minimalist coding assistant built for developers. It leverages the power of **Groq (Llama 3.3)** to provide near-instant coding help, debugging, and refactoring directly in your browser or as an installed mobile app.
+CodeBuddy AI is a high-performance, glassmorphism-styled assistant powered by the **Llama 3.3 70B** model via Groq API. It’s designed specifically for mobile developers who need to explain, debug, or generate code on the go.
 
-![License](https://img.shields.io/github/license/goblinekkk/CodeBuddy-AI)
-![Stars](https://img.shields.io/github/stars/goblinekkk/CodeBuddy-AI)
+## ✨ Key Features
+* **🚀 Instant Generations:** Ultra-fast responses powered by the Groq Llama-3.3-70B engine.
+* **📂 One-Click Downloads:** Download generated code snippets directly as files (e.g., `.py`, `.js`, `.html`) with a single tap.
+* **📦 Collapsible Code Blocks:** Keep your workspace clean. View code only when you need it with interactive "View Code" boxes.
+* **📜 Mission History:** Quick access to your last 6 tasks. Review your recent work or clear it all with "Delete All".
+* **📋 Pro Copy Tool:** One-tap copy for the entire response, optimized for mobile browsers.
+* **💎 Glassmorphism UI:** A sleek, modern design that feels like a native app.
 
-## ✨ Features
+## 🚀 Quick Start
+1. Open [CodeBuddy AI](https://goblinekkk.github.io/CodeBuddy-AI/) in your browser.
+2. Enter your **Groq API Key** (stored securely in your local browser storage).
+3. Paste your code or describe a "mission".
+4. Choose an action (Explain, Debug, Generate) and hit **Ask Buddy**.
+5. **New:** Use the light-blue **Download** button in the code response to save your files instantly!
 
-- ⚡ **Insane Speed:** Powered by Groq for sub-second AI responses.
-- 📱 **PWA Ready:** Install it on your Home Screen (iOS/Android) for a native app experience.
-- 🧪 **Smart Actions:** Pre-defined modes for Explaining, Debugging, Refactoring, and Generating code.
-- 📜 **Local History:** Your recent missions are saved locally on your device.
-- 🔒 **Privacy First:** Your API key is stored securely in your browser's local storage.
-- 🎨 **Modern UI:** Sleek glassmorphism design optimized for both desktop and mobile.
-
-## 🚀 Getting Started
-
-1. Visit [CodeBuddy AI](https://goblinekkk.github.io/CodeBuddy-AI/)
-2. Enter your **Groq API Key** (get one for free at [console.groq.com](https://console.groq.com/)).
-3. Start coding!
-
-### Installation (Mobile)
-- **iOS:** Open in Safari -> Tap Share -> **Add to Home Screen**.
-- **Android:** Open in Chrome -> Tap three dots -> **Install App**.
-
-## 🛠️ Built With
-
-- **AI Model:** Llama 3.3 70B via Groq API.
-- **Frontend:** Vanilla JS, CSS3 (Glassmorphism), HTML5.
-- **PWA:** Service Workers for offline-ready architecture and fast updates.
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/goblinekkk/CodeBuddy-AI/issues).
+## 🛠️ Tech Stack
+* **Frontend:** HTML5, CSS3 (Custom Flex-Layouts), Vanilla JavaScript.
+* **AI Engine:** Groq API (Llama-3.3-70B-Versatile).
+* **Hosting:** GitHub Pages.
 
 ---
-*Created by [goblinekkk](https://github.com/goblinekkk)*
+*Created with ❤️ by goblinekkk*
