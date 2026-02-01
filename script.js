@@ -1,23 +1,16 @@
-// --- KILL SWITCH PRO SERVICE WORKERA & CACHE ---
+// --- Kill Switch for legacy versions ---
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(let registration of registrations) {
-            registration.unregister();
-            console.log('Service Worker odregistrován');
-        }
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+        for(let r of registrations) r.unregister();
     });
 }
-
-caches.keys().then(function(names) {
-    for (let name of names) caches.delete(name);
-    console.log('Cache vymazána');
+caches.keys().then(names => {
+    for (let n of names) caches.delete(n);
 });
-// ----------------------------------------------
 
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
 
-// History Logic
 function renderHistory() {
     const list = document.getElementById('historyList');
     const history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
@@ -37,20 +30,18 @@ function updateHistory(text) {
     }
 }
 
-// UI Actions
 document.getElementById('copyBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
     const btn = document.getElementById('copyBtn');
-    btn.innerText = "Zkopírováno!";
-    setTimeout(() => btn.innerText = "Kopírovat", 2000);
+    btn.innerText = "Copied!";
+    setTimeout(() => btn.innerText = "Copy", 2000);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
     document.getElementById('codeInput').value = "";
-    document.getElementById('aiResponse').innerText = "Čekám na instrukce...";
+    document.getElementById('aiResponse').innerText = "Waiting for mission...";
 });
 
-// AI Request
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
@@ -61,12 +52,12 @@ document.getElementById('runBtn').addEventListener('click', async () => {
 
     let apiKey = localStorage.getItem('buddy_api_key');
     if (!apiKey) {
-        apiKey = prompt("Vlož svůj Groq API klíč:");
+        apiKey = prompt("Please enter your Groq API key:");
         if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
         else return;
     }
 
-    responseBox.innerText = "Buddy přemýšlí... 🧠";
+    responseBox.innerText = "Buddy is thinking... 🧠";
 
     try {
         const response = await fetch(API_URL, {
@@ -74,8 +65,8 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "Jsi CodeBuddy, užitečný AI programátor. Odpovídej v češtině, stručně a technicky správně." },
-                    { role: "user", content: `Proveď akci ${action} na tomto kódu: ${code}` }
+                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Be concise, professional, and provide accurate code." },
+                    { role: "user", content: `Please ${action} this: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
             })
@@ -96,7 +87,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         type();
 
     } catch (e) {
-        responseBox.innerText = "Chyba: " + e.message;
+        responseBox.innerText = "Error: " + e.message;
     }
 });
 
