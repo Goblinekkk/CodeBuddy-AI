@@ -15,8 +15,10 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 15px;
+    /* Změna: Místo align-items: center dáme flex-start a padding nahoře */
+    align-items: flex-start; 
+    padding: 40px 15px; /* Více místa nahoře a dole pro dlouhé odpovědi */
+    overflow-y: auto; /* Povolí plynulé scrollování */
 }
 
 .glass-container {
@@ -29,7 +31,12 @@ body {
     max-width: 500px;
     padding: 25px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    /* Změna: Odstraníme konfliktní centrovaní a necháme ho v rámci body */
+    margin: 0 auto; 
 }
+
+/* Zbytek kódu (header, textarea, atd.) zůstává stejný, 
+   ale upravíme .copy-btn a .output-header pro stabilitu */
 
 header { text-align: center; margin-bottom: 25px; }
 header h1 span { color: var(--accent-color); }
@@ -60,7 +67,6 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 #runBtn { background: var(--accent-color); color: #0f172a; }
 .secondary-btn { flex: 1; background: rgba(255, 255, 255, 0.05); color: white; }
 
-/* Oprava odsazení Recent Missions */
 .history-section { margin-bottom: 25px; }
 .history-section small { display: block; margin-bottom: 10px; color: #94a3b8; }
 
@@ -73,7 +79,6 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 
 .output-area { background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; }
 
-/* Oprava Copy tlačítka */
 .output-header { 
     padding: 10px 15px; 
     display: flex; 
@@ -84,10 +89,9 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 }
 
 .copy-btn { 
-    width: 70px; /* Pevná menší šířka */
+    width: 70px;
     height: 30px;
-    padding: 0;
-    flex: none; /* Zabrání natahování v flexboxu */
+    flex: none;
     background: transparent; 
     color: var(--accent-color); 
     font-size: 0.75rem; 
@@ -95,4 +99,12 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
     border-radius: 8px;
 }
 
-#aiResponse { padding: 15px; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #e2e8f0; }
+#aiResponse { 
+    padding: 15px; 
+    font-size: 0.95rem; 
+    line-height: 1.6; 
+    white-space: pre-wrap; 
+    color: #e2e8f0;
+    /* Přidáno pro stabilitu dlouhého textu */
+    overflow-wrap: break-word; 
+}
