@@ -1,4 +1,4 @@
-// --- Kill Switch for legacy versions ---
+// --- Kill Switch for legacy Service Workers & Cache ---
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
         for(let r of registrations) r.unregister();
@@ -31,7 +31,8 @@ function updateHistory(text) {
 }
 
 document.getElementById('copyBtn').addEventListener('click', () => {
-    navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
+    const responseText = document.getElementById('aiResponse').innerText;
+    navigator.clipboard.writeText(responseText);
     const btn = document.getElementById('copyBtn');
     btn.innerText = "Copied!";
     setTimeout(() => btn.innerText = "Copy", 2000);
@@ -65,7 +66,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Be concise, professional, and provide accurate code." },
+                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Respond in English. Be concise and professional." },
                     { role: "user", content: `Please ${action} this: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
