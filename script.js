@@ -1,31 +1,4 @@
-// --- SYSTEM UPDATE & CACHE KILLER ---
-const CACHE_NAME = 'codebuddy-v2';
-
-if ('serviceWorker' in navigator) {
-    // Registrujeme SW s novou verzí
-    navigator.serviceWorker.register('sw.js?v=2').then(reg => {
-        reg.onupdatefound = () => {
-            const installingWorker = reg.installing;
-            installingWorker.onstatechange = () => {
-                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    // Nová verze je připravena, vynutíme reload
-                    window.location.reload();
-                }
-            };
-        };
-    });
-}
-
-// Vymazání starých cache pamětí
-caches.keys().then(names => {
-    for (let name of names) {
-        if (name !== CACHE_NAME) caches.delete(name);
-    }
-});
-
-// --- ZBYTEK LOGIKY APLIKACE ---
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
-let typingInterval;
 
 function renderHistory() {
     const list = document.getElementById('historyList');
@@ -36,28 +9,25 @@ function renderHistory() {
     });
 }
 
-function updateHistory(text) {
-    let history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
-    if (!history.includes(text) && text.trim().length > 0) {
-        history.unshift(text);
-        if (history.length > 5) history.pop();
-        localStorage.setItem('buddy_history', JSON.stringify(history));
+// Tlačítko pro smazání historie
+document.getElementById('deleteHistoryBtn').addEventListener('click', () => {
+    if(confirm("Delete all missions?")) {
+        localStorage.removeItem('buddy_history');
         renderHistory();
     }
+});
+
+function formatAiResponse(text) {
+    // Najde bloky kódu (```kód```) a zabalí je do details/summary
+    const codeBlockRegex = /```(?:\w+)?\n([\s\S]*?)```/g;
+    return text.replace(codeBlockRegex, (match, code) => {
+        // Zkusíme odhadnout název souboru nebo použijeme 'Code Block'
+        return `<details>
+            <summary>Code View</summary>
+            <pre><code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+        </details>`;
+    });
 }
-
-document.getElementById('copyBtn').addEventListener('click', () => {
-    const text = document.getElementById('aiResponse').innerText;
-    navigator.clipboard.writeText(text);
-    const btn = document.getElementById('copyBtn');
-    btn.innerText = "Copied!";
-    setTimeout(() => btn.innerText = "Copy", 2000);
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-    document.getElementById('codeInput').value = "";
-    document.getElementById('aiResponse').innerText = "Waiting for mission...";
-});
 
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
@@ -65,16 +35,24 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     const responseBox = document.getElementById('aiResponse');
 
     if (!code.trim()) return;
-    updateHistory(code);
+
+    // Update historie
+    let history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
+    if (!history.includes(code)) {
+        history.unshift(code);
+        if (history.length > 5) history.pop();
+        localStorage.setItem('buddy_history', JSON.stringify(history));
+        renderHistory();
+    }
 
     let apiKey = localStorage.getItem('buddy_api_key');
     if (!apiKey) {
-        apiKey = prompt("Please enter your Groq API key:");
+        apiKey = prompt("Groq API Key:");
         if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
         else return;
     }
 
-    responseBox.innerText = "Buddy is thinking... 🧠";
+    responseBox.innerHTML = "Thinking... 🧠";
 
     try {
         const response = await fetch(API_URL, {
@@ -82,7 +60,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Respond in English. Be concise." },
+                    { role: "system", content: "You are CodeBuddy. If you provide code, wrap it in markdown code blocks. Always mention the filename if possible." },
                     { role: "user", content: `Please ${action} this: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
@@ -92,19 +70,24 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         const data = await response.json();
         const aiText = data.choices[0].message.content;
         
-        responseBox.innerText = "";
-        let i = 0;
-        function type() {
-            if (i < aiText.length) {
-                responseBox.innerText += aiText.charAt(i);
-                i++;
-                setTimeout(type, 5);
-            }
-        }
-        type();
+        // Zobrazení s formátováním (zabalení kódu)
+        responseBox.innerHTML = formatAiResponse(aiText);
+
     } catch (e) {
         responseBox.innerText = "Error: " + e.message;
     }
+});
+
+document.getElementById('copyBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
+    const btn = document.getElementById('copyBtn');
+    btn.innerText = "Copied!";
+    setTimeout(() => btn.innerText = "Copy", 2000);
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('codeInput').value = "";
+    document.getElementById('aiResponse').innerHTML = "Waiting for mission...";
 });
 
 renderHistory();
