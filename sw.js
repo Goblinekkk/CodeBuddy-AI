@@ -1,10 +1,13 @@
-const CACHE_NAME = 'buddy-v2';
-const ASSETS = ['./', './index.html', './style.css', './script.js', './CodeBuddy-AI-Logo.png', './manifest.json'];
-
-self.addEventListener('install', e => {
-    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+// Jednoduchý Service Worker, který se okamžitě aktualizuje
+self.addEventListener('install', (event) => {
+    self.skipWaiting();
 });
 
-self.addEventListener('fetch', e => {
-    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+self.addEventListener('activate', (event) => {
+    event.waitUntil(clients.claim());
+});
+
+self.addEventListener('fetch', (event) => {
+    // Nesnažíme se o cache, bereme vždy čerstvá data
+    event.respondWith(fetch(event.request));
 });
