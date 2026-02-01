@@ -5,38 +5,6 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
 }
 
-// Voice Recognition
-const voiceBtn = document.getElementById('voiceBtn');
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = SpeechRecognition ? new SpeechRecognition() : null;
-
-if (recognition) {
-    recognition.lang = 'en-US'; // Switched to English
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    voiceBtn.addEventListener('click', () => {
-        try {
-            recognition.start();
-            voiceBtn.innerText = "🛑";
-            voiceBtn.style.background = "#ef4444";
-        } catch (e) {
-            recognition.stop();
-        }
-    });
-
-    recognition.onresult = (event) => {
-        document.getElementById('codeInput').value = event.results[0][0].transcript;
-    };
-
-    recognition.onend = () => {
-        voiceBtn.innerText = "🎤";
-        voiceBtn.style.background = "var(--accent)";
-    };
-} else {
-    voiceBtn.style.display = 'none';
-}
-
 // History Logic
 function updateHistory(text) {
     let history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
@@ -64,8 +32,9 @@ renderHistory();
 // UI Buttons
 document.getElementById('copyBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
-    document.getElementById('copyBtn').innerText = "Copied!";
-    setTimeout(() => document.getElementById('copyBtn').innerText = "Copy", 2000);
+    const btn = document.getElementById('copyBtn');
+    btn.innerText = "Copied!";
+    setTimeout(() => btn.innerText = "Copy", 2000);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
