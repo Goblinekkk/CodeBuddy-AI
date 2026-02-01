@@ -66,7 +66,6 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 #runBtn { background: var(--accent-color); color: #0f172a; }
 .secondary-btn { flex: 1; background: rgba(255, 255, 255, 0.08); color: white; }
 
-/* OPRAVA HISTORIE A DELETE TLAČÍTKA */
 .history-section { margin-bottom: 20px; }
 .history-header {
     display: flex;
@@ -77,16 +76,18 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 .history-header small { color: #64748b; font-weight: 600; }
 
 #deleteHistoryBtn {
-    /* Oprava šířky: auto a pevný padding */
-    width: auto; 
-    flex: none; 
-    padding: 5px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px !important;
+    height: 28px;
+    flex: none;
     background: rgba(248, 113, 113, 0.1);
     color: #f87171; 
     font-size: 0.7rem;
     border-radius: 6px; 
     border: 1px solid rgba(248, 113, 113, 0.2);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .history-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
@@ -97,24 +98,19 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
     color: var(--accent-color);
 }
 
-/* OPRAVA OUTPUT AREA A COPY TLAČÍTKA */
 .output-area { background: rgba(0, 0, 0, 0.3); border-radius: 18px; border: 1px solid var(--glass-border); }
-
 .output-header { 
-    padding: 10px 15px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03); 
-    border-bottom: 1px solid var(--glass-border);
+    padding: 10px 15px; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid var(--glass-border);
 }
 
 .copy-btn { 
-    /* Fix šířky v Opeře */
-    width: 65px; 
-    height: 30px; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px !important; 
+    height: 28px; 
     flex: none; 
-    padding: 0;
     background: transparent; 
     color: var(--accent-color); 
     font-size: 0.7rem; 
@@ -123,16 +119,11 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
 }
 
 #aiResponse { 
-    padding: 15px; 
-    font-size: 0.95rem; 
-    line-height: 1.6; 
-    color: #cbd5e1;
-    /* TYTO DVA ŘÁDKY OPRAVÍ PŘETÉKÁNÍ ČÁRY: */
-    overflow-wrap: break-word; 
+    padding: 15px; font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;
+    overflow-wrap: break-word;
     word-break: break-all;
 }
 
-/* COLLAPSIBLE CODE BOX */
 details {
     background: #0a0f1a; border-radius: 10px;
     margin: 12px 0; border: 1px solid var(--glass-border);
