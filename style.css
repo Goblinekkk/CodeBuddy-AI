@@ -1,21 +1,12 @@
-/* Globální nastavení a barvy */
 :root {
     --bg-color: #0f172a;
     --accent-color: #38bdf8;
-    --accent-hover: #0ea5e9;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     --text-main: #f1f5f9;
-    --text-dim: #94a3b8;
-    --error: #ef4444;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     background: radial-gradient(circle at top, #1e293b, #0f172a);
@@ -28,7 +19,6 @@ body {
     padding: 15px;
 }
 
-/* Hlavní kontejner s efektem skla */
 .glass-container {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -38,201 +28,47 @@ body {
     width: 100%;
     max-width: 500px;
     padding: 25px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* Hlavička */
-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
+header { text-align: center; margin-bottom: 25px; }
+.main-logo { width: 60px; height: 60px; margin-bottom: 10px; }
+header h1 span { color: var(--accent-color); }
 
-.main-logo {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 0 10px var(--accent-color));
-}
-
-header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-}
-
-header h1 span {
-    color: var(--accent-color);
-}
-
-/* Vstupní pole */
-.input-wrapper {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
+.input-wrapper { width: 100%; margin-bottom: 20px; }
 textarea {
-    width: 100%;
-    height: 140px;
+    width: 100%; height: 140px;
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 15px;
-    color: var(--text-main);
+    color: white;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
     resize: none;
-    transition: all 0.3s ease;
 }
 
-textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-}
-
-/* Ovládací prvky */
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
 select {
-    width: 100%;
-    padding: 12px;
-    background: #1e293b;
+    padding: 12px; background: #1e293b;
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
+    border-radius: 12px; color: white;
 }
 
-.button-group {
-    display: flex;
-    gap: 10px;
-}
+.button-group { display: flex; gap: 10px; }
+button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; }
+#runBtn { background: var(--accent-color); color: #0f172a; }
+.secondary-btn { flex: 1; background: rgba(255, 255, 255, 0.05); color: white; }
 
-button {
-    flex: 2;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-#runBtn {
-    background: var(--accent-color);
-    color: #0f172a;
-}
-
-#runBtn:hover {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
-}
-
-.secondary-btn {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-main);
-}
-
-.secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Historie */
-.history-section {
-    margin-bottom: 25px;
-}
-
-.history-section small {
-    display: block;
-    color: var(--text-dim);
-    margin-bottom: 8px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.history-list {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 5px;
-}
-
-.history-list::-webkit-scrollbar {
-    height: 4px;
-}
-
+.history-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; }
 .history-item {
-    background: var(--glass-bg);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    cursor: pointer;
-    border: 1px solid var(--glass-border);
-    color: var(--text-dim);
+    background: var(--glass-bg); padding: 6px 12px;
+    border-radius: 20px; font-size: 0.8rem; cursor: pointer;
+    border: 1px solid var(--glass-border); white-space: nowrap;
 }
 
-.history-item:hover {
-    border-color: var(--accent-color);
-    color: white;
+.output-area { background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid var(--glass-border); }
+.output-header { 
+    padding: 10px 15px; display: flex; justify-content: space-between; 
+    background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid var(--glass-border);
 }
-
-/* Výstupní plocha */
-.output-area {
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
-    overflow: hidden;
-}
-
-.output-header {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--glass-border);
-}
-
-.output-header span {
-    font-size: 0.8rem;
-    color: var(--text-dim);
-}
-
-.copy-btn {
-    background: transparent;
-    color: var(--accent-color);
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    width: auto;
-}
-
-#aiResponse {
-    padding: 15px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    min-height: 100px;
-    max-height: 300px;
-    overflow-y: auto;
-    color: #e2e8f0;
-    white-space: pre-wrap;
-}
-
-/* Responzivita pro malé mobily */
-@media (max-width: 400px) {
-    .glass-container {
-        padding: 15px;
-    }
-    
-    header h1 {
-        font-size: 1.2rem;
-    }
-}
+.copy-btn { width: auto; background: transparent; color: var(--accent-color); font-size: 0.75rem; }
+#aiResponse { padding: 15px; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; }
