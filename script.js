@@ -19,11 +19,34 @@ document.getElementById('deleteHistoryBtn').addEventListener('click', () => {
     }
 });
 
+// Funkce pro stahování souboru
+function downloadCode(filename, code) {
+    const blob = new Blob([code], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
 function formatAiResponse(text) {
-    const codeBlockRegex = /```(?:\w+)?\n([\s\S]*?)```/g;
-    return text.replace(codeBlockRegex, (match, code) => {
+    // Regex hledá bloky kódu a snaží se najít název souboru
+    const codeBlockRegex = /```(\w+)?(?::(.+?))?\n([\s\S]*?)```/g;
+    
+    if (!text.match(codeBlockRegex)) {
+        return text;
+    }
+
+    return text.replace(codeBlockRegex, (match, lang, filename, code) => {
+        const displayFile = filename || (lang ? `source.${lang}` : 'code-snippet.txt');
+        const escapedCode = code.replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        
         return `<details>
-            <summary>📄 View Code Source</summary>
+            <summary>
+                <span>📄 ${displayFile}</span>
+                <button class="download-btn" onclick="downloadCode('${displayFile}', \`${escapedCode}\`)">Download</button>
+            </summary>
             <pre><code>${code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
         </details>`;
     });
@@ -59,7 +82,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy. Professional and concise. Wrap all code in markdown blocks." },
+                    { role: "system", content: "You are CodeBuddy. Professional and concise. Wrap all code in markdown blocks. If you know the filename, use format ```language:filename." },
                     { role: "user", content: `Please ${action} this code: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
