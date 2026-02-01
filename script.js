@@ -1,6 +1,13 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
 
+// Tento kód "zabije" staré verze aplikace
+navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for(let registration of registrations) {
+        registration.unregister();
+    }
+});
+
 // History Logic
 function renderHistory() {
     const list = document.getElementById('historyList');
