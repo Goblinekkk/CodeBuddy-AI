@@ -1,12 +1,21 @@
+// --- KILL SWITCH PRO SERVICE WORKERA & CACHE ---
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            registration.unregister();
+            console.log('Service Worker odregistrován');
+        }
+    });
+}
+
+caches.keys().then(function(names) {
+    for (let name of names) caches.delete(name);
+    console.log('Cache vymazána');
+});
+// ----------------------------------------------
+
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
-
-// Tento kód "zabije" staré verze aplikace
-navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    for(let registration of registrations) {
-        registration.unregister();
-    }
-});
 
 // History Logic
 function renderHistory() {
@@ -31,7 +40,9 @@ function updateHistory(text) {
 // UI Actions
 document.getElementById('copyBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
-    alert("Zkopírováno!");
+    const btn = document.getElementById('copyBtn');
+    btn.innerText = "Zkopírováno!";
+    setTimeout(() => btn.innerText = "Kopírovat", 2000);
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -73,7 +84,6 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         const data = await response.json();
         const aiText = data.choices[0].message.content;
         
-        // Typewriter effect
         responseBox.innerText = "";
         let i = 0;
         function type() {
