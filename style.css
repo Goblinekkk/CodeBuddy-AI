@@ -1,28 +1,238 @@
+/* Globální nastavení a barvy */
 :root {
-    --bg-color: #0f172a; --accent: #38bdf8; --text: #f8fafc; --glass: rgba(255, 255, 255, 0.07);
+    --bg-color: #0f172a;
+    --accent-color: #38bdf8;
+    --accent-hover: #0ea5e9;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f1f5f9;
+    --text-dim: #94a3b8;
+    --error: #ef4444;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { background: radial-gradient(circle at top, #1e293b, #0f172a); color: var(--text); font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-.glass-container { background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); }
-.main-logo { width: 80px; height: auto; display: block; margin: 0 auto 10px; border-radius: 15px; mix-blend-mode: screen; }
-header h1 { text-align: center; font-size: 1.5rem; margin-bottom: 20px; }
-header h1 span { color: var(--accent); }
 
-.input-wrapper { position: relative; width: 100%; }
-textarea { width: 100%; height: 120px; background: rgba(0, 0, 0, 0.25); border: 1.5px solid rgba(255, 255, 255, 0.1); border-radius: 15px; color: #fff; padding: 12px; font-family: 'JetBrains Mono', monospace; outline: none; resize: none; font-size: 14px; }
-.voice-btn { position: absolute; right: 10px; bottom: 25px; background: var(--accent); border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
 
-.controls { display: flex; flex-direction: column; gap: 12px; margin: 15px 0; }
-select { width: 100%; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 15px; font-size: 15px; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; }
-.button-group { display: flex; gap: 10px; }
-button { font-weight: bold; cursor: pointer; border: none; padding: 14px; border-radius: 15px; font-size: 15px; transition: 0.2s; }
-#runBtn { background: var(--accent); color: var(--bg-color); flex: 2; }
-.secondary-btn { background: rgba(255, 255, 255, 0.1) !important; color: white !important; flex: 1; }
+body {
+    background: radial-gradient(circle at top, #1e293b, #0f172a);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
 
-.history-section { margin-bottom: 15px; }
-.history-list { display: flex; gap: 8px; overflow-x: auto; padding: 5px 0; scrollbar-width: none; }
-.history-item { background: rgba(255, 255, 255, 0.05); padding: 6px 12px; border-radius: 10px; font-size: 11px; white-space: nowrap; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.1); }
+/* Hlavní kontejner s efektem skla */
+.glass-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 500px;
+    padding: 25px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
 
-.output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.copy-btn { background: rgba(56, 189, 248, 0.1) !important; border: 1px solid var(--accent) !important; color: var(--accent) !important; padding: 5px 12px !important; font-size: 11px !important; border-radius: 10px !important; }
-#aiResponse { background: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 15px; min-height: 60px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; }
+/* Hlavička */
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.main-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px var(--accent-color));
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+header h1 span {
+    color: var(--accent-color);
+}
+
+/* Vstupní pole */
+.input-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 140px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 15px;
+    color: var(--text-main);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    resize: none;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+/* Ovládací prvky */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    background: #1e293b;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 2;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#runBtn {
+    background: var(--accent-color);
+    color: #0f172a;
+}
+
+#runBtn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Historie */
+.history-section {
+    margin-bottom: 25px;
+}
+
+.history-section small {
+    display: block;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.history-list {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.history-list::-webkit-scrollbar {
+    height: 4px;
+}
+
+.history-item {
+    background: var(--glass-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    color: var(--text-dim);
+}
+
+.history-item:hover {
+    border-color: var(--accent-color);
+    color: white;
+}
+
+/* Výstupní plocha */
+.output-area {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.output-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.output-header span {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.copy-btn {
+    background: transparent;
+    color: var(--accent-color);
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    width: auto;
+}
+
+#aiResponse {
+    padding: 15px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    color: #e2e8f0;
+    white-space: pre-wrap;
+}
+
+/* Responzivita pro malé mobily */
+@media (max-width: 400px) {
+    .glass-container {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.2rem;
+    }
+}
