@@ -31,7 +31,6 @@ body {
 }
 
 header { text-align: center; margin-bottom: 25px; }
-.main-logo { width: 60px; height: 60px; margin-bottom: 10px; }
 header h1 span { color: var(--accent-color); }
 
 .input-wrapper { width: 100%; margin-bottom: 20px; }
@@ -44,6 +43,7 @@ textarea {
     color: white;
     font-family: 'JetBrains Mono', monospace;
     resize: none;
+    font-size: 16px;
 }
 
 .controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
@@ -51,6 +51,7 @@ select {
     padding: 12px; background: #1e293b;
     border: 1px solid var(--glass-border);
     border-radius: 12px; color: white;
+    font-size: 16px;
 }
 
 .button-group { display: flex; gap: 10px; }
