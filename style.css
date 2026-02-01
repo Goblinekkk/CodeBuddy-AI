@@ -122,7 +122,15 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
     border-radius: 6px; 
 }
 
-#aiResponse { padding: 15px; font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; }
+#aiResponse { 
+    padding: 15px; 
+    font-size: 0.95rem; 
+    line-height: 1.6; 
+    color: #cbd5e1;
+    /* TYTO DVA ŘÁDKY OPRAVÍ PŘETÉKÁNÍ ČÁRY: */
+    overflow-wrap: break-word; 
+    word-break: break-all;
+}
 
 /* COLLAPSIBLE CODE BOX */
 details {
