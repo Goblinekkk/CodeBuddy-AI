@@ -31,6 +31,4 @@ Using a custom **Service Worker**, the app shell is cached locally. This ensures
 
 ## 🚀 Getting Started
 
-1. **Clone the repo:**
-   ```bash
-   git clone [https://github.com/Goblinekkk/CodeBuddy-AI.git](https://github.com/Goblinekkk/CodeBuddy-AI.git)
+**https://goblinekkk.github.io/CodeBuddy-AI/**
