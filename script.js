@@ -20,17 +20,7 @@ document.getElementById('deleteHistoryBtn').addEventListener('click', () => {
 });
 
 function formatAiResponse(text) {
-    // Regex pro zachycení bloků kódu
     const codeBlockRegex = /```(?:\w+)?\n([\s\S]*?)```/g;
-    let parts = text.split(codeBlockRegex);
-    let codes = text.match(codeBlockRegex);
-    
-    if(!codes) return text;
-
-    let result = "";
-    let codeIdx = 0;
-    
-    // Projdeme text a nahradíme bloky kódu zavíracím boxem
     return text.replace(codeBlockRegex, (match, code) => {
         return `<details>
             <summary>📄 View Code Source</summary>
@@ -79,6 +69,9 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         const data = await response.json();
         const aiText = data.choices[0].message.content;
         responseBox.innerHTML = formatAiResponse(aiText);
+        
+        // Auto-scroll na odpověď
+        responseBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     } catch (e) {
         responseBox.innerText = "Error: " + e.message;
