@@ -28,6 +28,7 @@ body {
     width: 100%;
     max-width: 500px;
     padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 header { text-align: center; margin-bottom: 25px; }
@@ -44,6 +45,12 @@ textarea {
     font-family: 'JetBrains Mono', monospace;
     resize: none;
     font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
 }
 
 .controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
@@ -52,11 +59,13 @@ select {
     border: 1px solid var(--glass-border);
     border-radius: 12px; color: white;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .button-group { display: flex; gap: 10px; }
-button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; }
+button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; }
 #runBtn { background: var(--accent-color); color: #0f172a; }
+#runBtn:active { transform: scale(0.98); }
 .secondary-btn { flex: 1; background: rgba(255, 255, 255, 0.05); color: white; }
 
 .history-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; }
@@ -64,12 +73,20 @@ button { flex: 2; padding: 12px; border-radius: 12px; border: none; font-weight:
     background: var(--glass-bg); padding: 6px 12px;
     border-radius: 20px; font-size: 0.8rem; cursor: pointer;
     border: 1px solid var(--glass-border); white-space: nowrap;
+    color: var(--accent-color);
 }
 
-.output-area { background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid var(--glass-border); }
+.output-area { background: rgba(0, 0, 0, 0.25); border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; }
 .output-header { 
-    padding: 10px 15px; display: flex; justify-content: space-between; 
+    padding: 12px 15px; display: flex; justify-content: space-between; align-items: center;
     background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid var(--glass-border);
 }
-.copy-btn { width: auto; background: transparent; color: var(--accent-color); font-size: 0.75rem; }
-#aiResponse { padding: 15px; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; }
+
+.copy-btn { 
+    width: auto; min-width: 80px;
+    background: rgba(56, 189, 248, 0.1); color: var(--accent-color); 
+    font-size: 0.75rem; padding: 6px 12px; border: 1px solid var(--accent-color);
+    border-radius: 8px; cursor: pointer;
+}
+
+#aiResponse { padding: 15px; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; color: #e2e8f0; min-height: 100px; }
