@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI</title>
     
-    <link rel="manifest" href="manifest.json?v=4">
+    <link rel="manifest" href="manifest.json?v=5">
     <link rel="apple-touch-icon" href="CodeBuddy-AI-Logo.jpg">
     <link rel="icon" type="image/jpeg" href="CodeBuddy-AI-Logo.jpg">
     
@@ -13,13 +13,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="glass-container">
         <header>
-            <img src="CodeBuddy-AI-Logo.jpg" alt="Logo" style="width: 80px; height: 80px; border-radius: 20px; margin-bottom: 15px;">
+            <img src="CodeBuddy-AI-Logo.jpg" alt="Logo" class="main-logo">
             <h1>CodeBuddy <span>AI</span></h1>
         </header>
 
@@ -42,9 +42,9 @@
             </div>
 
             <div class="history-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <small style="color: #94a3b8; margin: 0;">Recent Missions:</small>
-                    <button id="deleteHistoryBtn" style="background: none; border: none; color: #f87171; font-size: 0.7rem; cursor: pointer; width: auto; font-weight: 400;">Delete Missions</button>
+                <div class="history-header">
+                    <small>Recent Missions:</small>
+                    <button id="deleteHistoryBtn">Delete All</button>
                 </div>
                 <div id="historyList" class="history-list"></div>
             </div>
@@ -58,6 +58,6 @@
             </div>
         </main>
     </div>
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>
