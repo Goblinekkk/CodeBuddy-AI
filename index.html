@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -12,39 +12,38 @@
 <body>
     <div class="glass-container">
         <header>
-            <img src="CodeBuddy-AI-Logo.png" alt="Logo" class="main-logo">
             <h1>CodeBuddy <span>AI</span></h1>
         </header>
 
         <main>
             <div class="input-wrapper">
-                <textarea id="codeInput" placeholder="// Vlož kód nebo popiš úkol..."></textarea>
+                <textarea id="codeInput" placeholder="// Paste code or describe your mission..."></textarea>
             </div>
             
             <div class="controls">
                 <select id="actionSelect">
-                    <option value="explain">Vysvětli kód</option>
-                    <option value="debug">Najdi chyby</option>
-                    <option value="refactor">Refaktoruj kód</option>
-                    <option value="generate">Generuj kód</option>
+                    <option value="explain">Explain code</option>
+                    <option value="debug">Find bugs</option>
+                    <option value="refactor">Refactor code</option>
+                    <option value="generate">Generate code</option>
                 </select>
                 <div class="button-group">
                     <button id="runBtn">Ask Buddy</button>
-                    <button id="clearBtn" class="secondary-btn">Smazat</button>
+                    <button id="clearBtn" class="secondary-btn">Clear</button>
                 </div>
             </div>
 
             <div class="history-section">
-                <small>Nedávné úkoly:</small>
+                <small>Recent Missions:</small>
                 <div id="historyList" class="history-list"></div>
             </div>
 
             <div class="output-area">
                 <div class="output-header">
-                    <span>Odpověď:</span>
-                    <button id="copyBtn" class="copy-btn">Kopírovat</button>
+                    <span>Response:</span>
+                    <button id="copyBtn" class="copy-btn">Copy</button>
                 </div>
-                <div id="aiResponse">Čekám na instrukce...</div>
+                <div id="aiResponse">Waiting for mission...</div>
             </div>
         </main>
     </div>
