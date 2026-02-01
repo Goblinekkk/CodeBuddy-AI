@@ -130,11 +130,26 @@ details {
     overflow: hidden;
 }
 summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 12px; cursor: pointer; font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem; color: var(--accent-color); background: rgba(255,255,255,0.02);
 }
+
+.download-btn {
+    background: var(--accent-color);
+    color: #0f172a;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 pre {
     padding: 15px; overflow-x: auto;
     font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
     color: #94a3b8; border-top: 1px solid var(--glass-border);
-}
+    }
