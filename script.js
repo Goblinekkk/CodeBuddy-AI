@@ -1,13 +1,29 @@
-// --- Kill Switch for legacy Service Workers & Cache ---
+// --- SYSTEM UPDATE & CACHE KILLER ---
+const CACHE_NAME = 'codebuddy-v2';
+
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-        for(let r of registrations) r.unregister();
+    // Registrujeme SW s novou verzí
+    navigator.serviceWorker.register('sw.js?v=2').then(reg => {
+        reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Nová verze je připravena, vynutíme reload
+                    window.location.reload();
+                }
+            };
+        };
     });
 }
+
+// Vymazání starých cache pamětí
 caches.keys().then(names => {
-    for (let n of names) caches.delete(n);
+    for (let name of names) {
+        if (name !== CACHE_NAME) caches.delete(name);
+    }
 });
 
+// --- ZBYTEK LOGIKY APLIKACE ---
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 let typingInterval;
 
@@ -31,8 +47,8 @@ function updateHistory(text) {
 }
 
 document.getElementById('copyBtn').addEventListener('click', () => {
-    const responseText = document.getElementById('aiResponse').innerText;
-    navigator.clipboard.writeText(responseText);
+    const text = document.getElementById('aiResponse').innerText;
+    navigator.clipboard.writeText(text);
     const btn = document.getElementById('copyBtn');
     btn.innerText = "Copied!";
     setTimeout(() => btn.innerText = "Copy", 2000);
@@ -66,7 +82,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Respond in English. Be concise and professional." },
+                    { role: "system", content: "You are CodeBuddy, a helpful AI pair programmer. Respond in English. Be concise." },
                     { role: "user", content: `Please ${action} this: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
@@ -86,7 +102,6 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             }
         }
         type();
-
     } catch (e) {
         responseBox.innerText = "Error: " + e.message;
     }
