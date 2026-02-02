@@ -1,5 +1,7 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const PREMIUM_KEY = "Goblinekkk";
 
+// History Logic
 function renderHistory() {
     const list = document.getElementById('historyList');
     const history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
@@ -19,24 +21,19 @@ document.getElementById('deleteHistoryBtn').addEventListener('click', () => {
     }
 });
 
-// Funkce pro stahování souboru
+// Download Function
 function downloadCode(filename, code) {
     const blob = new Blob([code], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
+    a.href = url; a.download = filename; a.click();
     window.URL.revokeObjectURL(url);
 }
 
+// AI Response Formatting
 function formatAiResponse(text) {
-    // Regex hledá bloky kódu a snaží se najít název souboru
     const codeBlockRegex = /```(\w+)?(?::(.+?))?\n([\s\S]*?)```/g;
-    
-    if (!text.match(codeBlockRegex)) {
-        return text;
-    }
+    if (!text.match(codeBlockRegex)) return text;
 
     return text.replace(codeBlockRegex, (match, lang, filename, code) => {
         const displayFile = filename || (lang ? `source.${lang}` : 'code-snippet.txt');
@@ -52,6 +49,52 @@ function formatAiResponse(text) {
     });
 }
 
+// Premium & Modal Logic
+function checkPremium() {
+    if (localStorage.getItem('buddy_premium') === 'true') {
+        document.body.classList.add('premium-mode');
+    }
+}
+
+window.addEventListener('load', () => {
+    checkPremium();
+    const welcomeModal = document.getElementById('welcomeModal');
+    const premiumModal = document.getElementById('premiumModal');
+
+    if (!localStorage.getItem('buddy_welcome_seen')) {
+        welcomeModal.style.display = 'flex';
+    }
+
+    document.getElementById('closeWelcomeBtn').addEventListener('click', () => {
+        welcomeModal.style.display = 'none';
+        localStorage.setItem('buddy_welcome_seen', 'true');
+    });
+
+    document.getElementById('openPremiumBtn').addEventListener('click', () => {
+        welcomeModal.style.display = 'none';
+        premiumModal.style.display = 'flex';
+    });
+
+    document.getElementById('closePremiumBtn').addEventListener('click', () => {
+        premiumModal.style.display = 'none';
+        localStorage.setItem('buddy_welcome_seen', 'true');
+    });
+
+    document.getElementById('activatePremiumBtn').addEventListener('click', () => {
+        const input = document.getElementById('premiumCodeInput').value;
+        if (input === PREMIUM_KEY) {
+            alert("👑 Premium Activated!");
+            localStorage.setItem('buddy_premium', 'true');
+            localStorage.setItem('buddy_welcome_seen', 'true');
+            premiumModal.style.display = 'none';
+            checkPremium();
+        } else {
+            alert("❌ Invalid code.");
+        }
+    });
+});
+
+// Run Mission
 document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
@@ -74,7 +117,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         else return;
     }
 
-    responseBox.innerHTML = "<span style='color:var(--accent-color)'>Buddy is analyzing...</span>";
+    responseBox.innerHTML = "<span>Buddy is analyzing...</span>";
 
     try {
         const response = await fetch(API_URL, {
@@ -82,7 +125,7 @@ document.getElementById('runBtn').addEventListener('click', async () => {
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy. Professional and concise. Wrap all code in markdown blocks. If you know the filename, use format ```language:filename." },
+                    { role: "system", content: "You are CodeBuddy. concise. Use format ```language:filename for code." },
                     { role: "user", content: `Please ${action} this code: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
@@ -90,20 +133,16 @@ document.getElementById('runBtn').addEventListener('click', async () => {
         });
 
         const data = await response.json();
-        const aiText = data.choices[0].message.content;
-        responseBox.innerHTML = formatAiResponse(aiText);
-        
-        // Auto-scroll na odpověď
+        responseBox.innerHTML = formatAiResponse(data.choices[0].message.content);
         responseBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
     } catch (e) {
         responseBox.innerText = "Error: " + e.message;
     }
 });
 
+// Utilities
 document.getElementById('copyBtn').addEventListener('click', () => {
-    const text = document.getElementById('aiResponse').innerText;
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
     const btn = document.getElementById('copyBtn');
     btn.innerText = "Saved!";
     setTimeout(() => btn.innerText = "Copy", 2000);
