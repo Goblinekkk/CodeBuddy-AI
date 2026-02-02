@@ -3,6 +3,8 @@
 
 CodeBuddy AI is a high-performance, glassmorphism-styled assistant powered by the **Llama 3.3 70B** model via Groq API. It’s designed specifically for mobile developers who need to explain, debug, or generate code on the go.
 
+***APK: https://median.co/share/odmdjwk#apk***
+
 ## ✨ Key Features
 * **🚀 Instant Generations:** Ultra-fast responses powered by the Groq Llama-3.3-70B engine.
 * **📂 One-Click Downloads:** Download generated code snippets directly as files (e.g., `.py`, `.js`, `.html`) with a single tap.
