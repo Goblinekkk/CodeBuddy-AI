@@ -1,7 +1,7 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const PREMIUM_KEY = "Goblinekkk";
 
-// History Logic
+// Render History
 function renderHistory() {
     const list = document.getElementById('historyList');
     const history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
@@ -21,7 +21,7 @@ document.getElementById('deleteHistoryBtn').addEventListener('click', () => {
     }
 });
 
-// Download Function
+// Download
 function downloadCode(filename, code) {
     const blob = new Blob([code], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
@@ -30,7 +30,7 @@ function downloadCode(filename, code) {
     window.URL.revokeObjectURL(url);
 }
 
-// AI Response Formatting
+// AI Formatting
 function formatAiResponse(text) {
     const codeBlockRegex = /```(\w+)?(?::(.+?))?\n([\s\S]*?)```/g;
     if (!text.match(codeBlockRegex)) return text;
@@ -49,10 +49,27 @@ function formatAiResponse(text) {
     });
 }
 
-// Premium & Modal Logic
+// Premium & UI Logic
 function checkPremium() {
-    if (localStorage.getItem('buddy_premium') === 'true') {
-        document.body.classList.add('premium-mode');
+    const isPremium = localStorage.getItem('buddy_premium') === 'true';
+    const body = document.body;
+    const inputArea = document.getElementById('premiumInputArea');
+    const deactivateBtn = document.getElementById('deactivatePremiumBtn');
+    const title = document.getElementById('premiumTitle');
+    const desc = document.getElementById('premiumDesc');
+
+    if (isPremium) {
+        body.classList.add('premium-mode');
+        inputArea.style.display = 'none';
+        deactivateBtn.style.display = 'block';
+        title.innerText = "Premium Active 👑";
+        desc.innerText = "You are using the VIP version of CodeBuddy.";
+    } else {
+        body.classList.remove('premium-mode');
+        inputArea.style.display = 'block';
+        deactivateBtn.style.display = 'none';
+        title.innerText = "Unlock Premium 👑";
+        desc.innerText = "Enter your code for exclusive perks and themes.";
     }
 }
 
@@ -70,8 +87,14 @@ window.addEventListener('load', () => {
         localStorage.setItem('buddy_welcome_seen', 'true');
     });
 
-    document.getElementById('openPremiumBtn').addEventListener('click', () => {
+    // Otvírání Premia z welcome okna
+    document.getElementById('openPremiumBtnWelcome').addEventListener('click', () => {
         welcomeModal.style.display = 'none';
+        premiumModal.style.display = 'flex';
+    });
+
+    // Otvírání Premia z hlavní obrazovky (Crown tlačítko)
+    document.getElementById('mainPremiumToggle').addEventListener('click', () => {
         premiumModal.style.display = 'flex';
     });
 
@@ -80,17 +103,25 @@ window.addEventListener('load', () => {
         localStorage.setItem('buddy_welcome_seen', 'true');
     });
 
+    // Aktivace
     document.getElementById('activatePremiumBtn').addEventListener('click', () => {
         const input = document.getElementById('premiumCodeInput').value;
         if (input === PREMIUM_KEY) {
-            alert("👑 Premium Activated!");
             localStorage.setItem('buddy_premium', 'true');
-            localStorage.setItem('buddy_welcome_seen', 'true');
-            premiumModal.style.display = 'none';
             checkPremium();
+            alert("👑 Premium Activated!");
+            premiumModal.style.display = 'none';
         } else {
             alert("❌ Invalid code.");
         }
+    });
+
+    // Deaktivace (Zpět na Normal)
+    document.getElementById('deactivatePremiumBtn').addEventListener('click', () => {
+        localStorage.removeItem('buddy_premium');
+        checkPremium();
+        alert("Back to Normal version.");
+        premiumModal.style.display = 'none';
     });
 });
 
@@ -99,7 +130,6 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     const code = document.getElementById('codeInput').value;
     const action = document.getElementById('actionSelect').value;
     const responseBox = document.getElementById('aiResponse');
-
     if (!code.trim()) return;
 
     let history = JSON.parse(localStorage.getItem('buddy_history') || '[]');
@@ -118,20 +148,18 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     }
 
     responseBox.innerHTML = "<span>Buddy is analyzing...</span>";
-
     try {
         const response = await fetch(API_URL, {
             method: "POST",
             headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
                 messages: [
-                    { role: "system", content: "You are CodeBuddy. concise. Use format ```language:filename for code." },
+                    { role: "system", content: "You are CodeBuddy. Use format ```language:filename." },
                     { role: "user", content: `Please ${action} this code: ${code}` }
                 ],
                 model: "llama-3.3-70b-versatile"
             })
         });
-
         const data = await response.json();
         responseBox.innerHTML = formatAiResponse(data.choices[0].message.content);
         responseBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -140,7 +168,6 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     }
 });
 
-// Utilities
 document.getElementById('copyBtn').addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
     const btn = document.getElementById('copyBtn');
