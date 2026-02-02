@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI</title>
     
-    <link rel="manifest" href="manifest.json?v=7">
+    <link rel="manifest" href="manifest.json?v=9">
     <link rel="apple-touch-icon" href="CodeBuddy-AI-Logo.jpg">
     <link rel="icon" type="image/jpeg" href="CodeBuddy-AI-Logo.jpg">
     
@@ -13,10 +13,31 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=9">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="welcomeModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Welcome to CodeBuddy AI! 🦉</h2>
+            <p>Your ultimate mobile coding assistant is ready.</p>
+            <div style="margin: 20px 0;">
+                <button id="closeWelcomeBtn">Let's Code!</button>
+                <button id="openPremiumBtn" style="background: #fbbf24; color: #0f172a; margin-top: 10px; width: 100%;">Go Premium 👑</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="premiumModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Unlock Premium 👑</h2>
+            <p>Enter your code for exclusive perks and themes.</p>
+            <input type="text" id="premiumCodeInput" placeholder="Enter code here..." style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #38bdf8; background: #0f172a; color: white; text-align: center;">
+            <button id="activatePremiumBtn">Activate</button>
+            <button id="closePremiumBtn" style="background: transparent; color: #94a3b8; font-size: 0.8rem; border: none; margin-top: 10px; cursor: pointer;">Maybe later</button>
+        </div>
+    </div>
+
     <div class="glass-container">
         <header>
             <img src="CodeBuddy-AI-Logo.jpg" alt="Logo" class="main-logo">
@@ -58,6 +79,6 @@
             </div>
         </main>
     </div>
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=9"></script>
 </body>
 </html>
