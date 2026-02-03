@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CodeBuddy AI PRO</title>
-    <link rel="stylesheet" href="style.css?v=16">
+    <title>CodeBuddy AI v111</title>
+    <link rel="stylesheet" href="style.css?v=111">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="welcomeModal" class="modal-overlay">
         <div class="modal-content">
-            <h2 style="color: #38bdf8; margin-bottom: 10px;">Welcome to CodeBuddy AI 🦉</h2>
+            <h2 style="color: #38bdf8; margin-bottom: 10px;">CodeBuddy AI v111 🦉</h2>
             <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.4;">
                 🚀 **Fast AI Coding Assistant**<br>
-                ✨ **Smart Code Explanations**<br>
-                🛠️ **Instant Bug Fixing**
+                ✨ **8 Exclusive Premium Themes**<br>
+                🛠️ **No API Key needed for PRO**
             </p>
             <div style="margin: 20px 0;">
                 <button id="closeWelcomeBtn" style="width:100%; margin-bottom:10px;">Start Coding</button>
                 <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #000; width: 100%; font-weight: bold;">Go Premium 👑</button>
             </div>
-            <p style="font-size: 0.7rem; color: #475569;">v16 Stable Build</p>
+            <p style="font-size: 0.7rem; color: #475569;">Anniversary Edition</p>
         </div>
     </div>
 
     <div id="premiumModal" class="modal-overlay">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 360px;">
             <h2 id="premiumTitle">Premium Settings 👑</h2>
             <div id="premiumInputArea">
                 <input type="text" id="premiumCodeInput" placeholder="Enter code..." style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #38bdf8; background: #0f172a; color: white; text-align: center;">
@@ -33,14 +33,18 @@
             </div>
             
             <div id="themeSelectorArea" style="display: none; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-                <p style="font-size: 0.8rem; margin-bottom: 10px;">Select Your Style:</p>
+                <p style="font-size: 0.8rem; margin-bottom: 10px;">Choose Your Style:</p>
                 <div class="theme-grid">
                     <button class="theme-btn" onclick="setTheme('gold')" style="background:#2e1065; color:#fbbf24;">Gold</button>
                     <button class="theme-btn" onclick="setTheme('emerald')" style="background:#064e3b; color:#10b981;">Emerald</button>
                     <button class="theme-btn" onclick="setTheme('ruby')" style="background:#450a0a; color:#ef4444;">Ruby</button>
                     <button class="theme-btn" onclick="setTheme('frost')" style="background:#1e293b; color:#f1f5f9;">Frost</button>
+                    <button class="theme-btn" onclick="setTheme('cyber')" style="background:#4c0519; color:#f472b6;">Cyber</button>
+                    <button class="theme-btn" onclick="setTheme('ocean')" style="background:#083344; color:#22d3ee;">Ocean</button>
+                    <button class="theme-btn" onclick="setTheme('hacker')" style="background:#052e16; color:#4ade80;">Hacker</button>
+                    <button class="theme-btn" onclick="setTheme('sunset')" style="background:#431407; color:#fb923c;">Sunset</button>
                 </div>
-                <button id="deactivatePremiumBtn" style="background:transparent; color:#94a3b8; border:1px solid #475569; width:100%; margin-top:15px; font-size:0.7rem;">Downgrade to Free</button>
+                <button id="deactivatePremiumBtn" style="background:transparent; color:#94a3b8; border:1px solid #475569; width:100%; margin-top:15px; font-size:0.7rem;">Back to Normal</button>
             </div>
             <button id="closePremiumBtn" style="background:transparent; color:#94a3b8; border:none; margin-top:10px; cursor:pointer;">Close</button>
         </div>
@@ -55,7 +59,6 @@
 
         <main>
             <textarea id="codeInput" placeholder="// Paste or type your code here..."></textarea>
-            
             <div class="controls">
                 <select id="actionSelect">
                     <option value="explain">Explain code</option>
@@ -66,20 +69,15 @@
                     <button id="runBtn">Ask Buddy</button>
                     <button id="previewBtn" class="premium-only-btn" style="background: #8b5cf6; color: white; display: none;">Preview ⚡</button>
                 </div>
-                <button id="clearBtn" class="secondary-btn" style="width:100%; margin-top:8px;">Clear Board</button>
+                <button id="clearBtn" class="secondary-btn" style="width:100%; margin-top:8px;">Clear</button>
             </div>
-
             <div id="historyList" class="history-list"></div>
-
             <div class="output-area">
-                <div class="output-header">
-                    <span>Response:</span>
-                    <button id="copyBtn" class="copy-btn">Copy</button>
-                </div>
-                <div id="aiResponse">Ready for mission...</div>
+                <div class="output-header"><span>Response:</span><button id="copyBtn" class="copy-btn">Copy</button></div>
+                <div id="aiResponse">Ready for v111 mission...</div>
             </div>
         </main>
     </div>
-    <script src="script.js?v=16"></script>
+    <script src="script.js?v=111"></script>
 </body>
 </html>
