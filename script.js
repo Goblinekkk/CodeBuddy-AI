@@ -1,5 +1,6 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const PREMIUM_KEY = "Goblinekkk";
+const MASTER_KEY = "ZDE_VLOZ_SVOJ_GROQ_API_KLIC"; // Vlož svůj klíč mezi uvozovky
 
 window.setTheme = function(t) {
     document.body.classList.remove('premium-gold', 'premium-emerald', 'premium-ruby', 'premium-frost');
@@ -14,7 +15,6 @@ function checkPremium() {
     document.getElementById('premiumInputArea').style.display = isP ? 'none' : 'block';
     document.getElementById('themeSelectorArea').style.display = isP ? 'block' : 'none';
     document.getElementById('previewBtn').style.display = isP ? 'block' : 'none';
-    
     if (isP) setTheme(localStorage.getItem('buddy_theme') || 'gold');
     else setTheme('normal');
 }
@@ -30,10 +30,10 @@ window.onload = () => {
         win.document.write(code.includes('<html>') ? code : `<html><body style="background:#0f172a;color:white;font-family:sans-serif;padding:20px;">${code}</body></html>`);
     };
 
-    if (!localStorage.getItem('buddy_v14_seen')) document.getElementById('welcomeModal').style.display = 'flex';
+    if (!localStorage.getItem('buddy_v15_seen')) document.getElementById('welcomeModal').style.display = 'flex';
     document.getElementById('closeWelcomeBtn').onclick = () => {
         document.getElementById('welcomeModal').style.display = 'none';
-        localStorage.setItem('buddy_v14_seen', 'true');
+        localStorage.setItem('buddy_v15_seen', 'true');
     };
     
     document.getElementById('mainPremiumToggle').onclick = () => document.getElementById('premiumModal').style.display = 'flex';
@@ -43,7 +43,7 @@ window.onload = () => {
         if (document.getElementById('premiumCodeInput').value === PREMIUM_KEY) {
             localStorage.setItem('buddy_premium', 'true');
             checkPremium();
-            alert("👑 Premium Activated!");
+            alert("👑 Premium Activated! No more API prompts.");
         } else alert("Invalid Code");
     };
 
@@ -57,11 +57,19 @@ window.onload = () => {
         const action = document.getElementById('actionSelect').value;
         if (!code) return;
 
-        let apiKey = localStorage.getItem('buddy_api_key');
-        if (!apiKey) {
-            apiKey = prompt("Enter Groq API Key:");
-            if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
-            else return;
+        let apiKey;
+        const isPremium = localStorage.getItem('buddy_premium') === 'true';
+
+        // LOGIKA KLÍČE: Premium má tvůj klíč, Normal se ptá
+        if (isPremium) {
+            apiKey = MASTER_KEY;
+        } else {
+            apiKey = localStorage.getItem('buddy_api_key');
+            if (!apiKey) {
+                apiKey = prompt("Free Version: Please enter your Groq API Key (or go Premium to skip this):");
+                if (apiKey) localStorage.setItem('buddy_api_key', apiKey.trim());
+                else return;
+            }
         }
 
         document.getElementById('aiResponse').innerText = "Buddy is analyzing...";
@@ -70,18 +78,18 @@ window.onload = () => {
                 method: "POST",
                 headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    messages: [{role:"system", content:"You are CodeBuddy. Professional and concise."}, {role:"user", content: action + ": " + code}],
+                    messages: [{role:"system", content:"You are CodeBuddy. Concise and helpful."}, {role:"user", content: action + ": " + code}],
                     model: "llama-3.3-70b-versatile"
                 })
             });
             const data = await res.json();
             document.getElementById('aiResponse').innerText = data.choices[0].message.content;
-        } catch (e) { document.getElementById('aiResponse').innerText = "Error! Check your API key."; }
+        } catch (e) { document.getElementById('aiResponse').innerText = "Error! Key might be invalid."; }
     };
 
     document.getElementById('clearBtn').onclick = () => document.getElementById('codeInput').value = "";
     document.getElementById('copyBtn').onclick = () => {
         navigator.clipboard.writeText(document.getElementById('aiResponse').innerText);
-        alert("Copied to clipboard!");
+        alert("Copied!");
     };
 };
