@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI PRO</title>
-    <link rel="stylesheet" href="style.css?v=14">
+    <link rel="stylesheet" href="style.css?v=16">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="welcomeModal" class="modal-overlay">
         <div class="modal-content">
-            <h2>CodeBuddy AI v14 🦉</h2>
-            <p>Clean, fast and ready for your code.</p>
+            <h2 style="color: #38bdf8; margin-bottom: 10px;">Welcome to CodeBuddy AI 🦉</h2>
+            <p style="font-size: 0.9rem; color: #94a3b8; line-height: 1.4;">
+                🚀 **Fast AI Coding Assistant**<br>
+                ✨ **Smart Code Explanations**<br>
+                🛠️ **Instant Bug Fixing**
+            </p>
             <div style="margin: 20px 0;">
                 <button id="closeWelcomeBtn" style="width:100%; margin-bottom:10px;">Start Coding</button>
-                <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #000; width: 100%;">Unlock Premium 👑</button>
+                <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #000; width: 100%; font-weight: bold;">Go Premium 👑</button>
             </div>
+            <p style="font-size: 0.7rem; color: #475569;">v16 Stable Build</p>
         </div>
     </div>
 
@@ -28,7 +33,7 @@
             </div>
             
             <div id="themeSelectorArea" style="display: none; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-                <p style="font-size: 0.8rem; margin-bottom: 10px;">Select Premium Theme:</p>
+                <p style="font-size: 0.8rem; margin-bottom: 10px;">Select Your Style:</p>
                 <div class="theme-grid">
                     <button class="theme-btn" onclick="setTheme('gold')" style="background:#2e1065; color:#fbbf24;">Gold</button>
                     <button class="theme-btn" onclick="setTheme('emerald')" style="background:#064e3b; color:#10b981;">Emerald</button>
@@ -49,7 +54,7 @@
         </header>
 
         <main>
-            <textarea id="codeInput" placeholder="// Paste or type your code..."></textarea>
+            <textarea id="codeInput" placeholder="// Paste or type your code here..."></textarea>
             
             <div class="controls">
                 <select id="actionSelect">
@@ -71,10 +76,10 @@
                     <span>Response:</span>
                     <button id="copyBtn" class="copy-btn">Copy</button>
                 </div>
-                <div id="aiResponse">Awaiting your command...</div>
+                <div id="aiResponse">Ready for mission...</div>
             </div>
         </main>
     </div>
-    <script src="script.js?v=14"></script>
+    <script src="script.js?v=16"></script>
 </body>
 </html>
