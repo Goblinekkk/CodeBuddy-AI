@@ -1,7 +1,7 @@
 # 🦉 CodeBuddy AI
 **The ultimate pocket-sized AI developer tool for mobile and web.**
 
-CodeBuddy AI is a high-performance, glassmorphism-styled assistant powered by the **Llama 3.3 70B** model via Groq API. It’s designed specifically for mobile developers who need to explain, debug, or generate code on the go.
+Latest Version: v10; CodeBuddy AI is a high-performance, glassmorphism-styled assistant powered by the **Llama 3.3 70B** model via Groq API. It’s designed specifically for mobile developers who need to explain, debug, or generate code on the go.
 
 ***APK: https://median.co/share/odmdjwk#apk***
 
