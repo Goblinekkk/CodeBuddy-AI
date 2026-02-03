@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI PRO</title>
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="welcomeModal" class="modal-overlay">
         <div class="modal-content">
-            <h2>CodeBuddy AI v13 🦉</h2>
-            <p>Voice Control, Live Preview & Themes unlocked.</p>
+            <h2>CodeBuddy AI v14 🦉</h2>
+            <p>Clean, fast and ready for your code.</p>
             <div style="margin: 20px 0;">
                 <button id="closeWelcomeBtn" style="width:100%; margin-bottom:10px;">Start Coding</button>
                 <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #000; width: 100%;">Unlock Premium 👑</button>
@@ -49,10 +49,7 @@
         </header>
 
         <main>
-            <div class="input-container">
-                <textarea id="codeInput" placeholder="// Speak or type your code..."></textarea>
-                <button id="voiceBtn" class="premium-only-btn" title="Voice to Code">🎤</button>
-            </div>
+            <textarea id="codeInput" placeholder="// Paste or type your code..."></textarea>
             
             <div class="controls">
                 <select id="actionSelect">
@@ -62,7 +59,7 @@
                 </select>
                 <div class="button-group">
                     <button id="runBtn">Ask Buddy</button>
-                    <button id="previewBtn" class="premium-only-btn" style="background: #8b5cf6; color: white;">Preview ⚡</button>
+                    <button id="previewBtn" class="premium-only-btn" style="background: #8b5cf6; color: white; display: none;">Preview ⚡</button>
                 </div>
                 <button id="clearBtn" class="secondary-btn" style="width:100%; margin-top:8px;">Clear Board</button>
             </div>
@@ -78,6 +75,6 @@
             </div>
         </main>
     </div>
-    <script src="script.js?v=13"></script>
+    <script src="script.js?v=14"></script>
 </body>
-    </html>
+</html>
