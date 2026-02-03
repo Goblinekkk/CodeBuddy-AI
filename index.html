@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CodeBuddy AI</title>
     
-    <link rel="manifest" href="manifest.json?v=10">
+    <link rel="manifest" href="manifest.json?v=12">
     <link rel="apple-touch-icon" href="CodeBuddy-AI-Logo.jpg">
     <link rel="icon" type="image/jpeg" href="CodeBuddy-AI-Logo.jpg">
     
@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=12">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -22,42 +22,51 @@
             <h2>Welcome to CodeBuddy AI! 🦉</h2>
             <p>Your ultimate mobile coding assistant is ready.</p>
             <div style="margin: 20px 0;">
-                <button id="closeWelcomeBtn">Let's Code!</button>
-                <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #0f172a; margin-top: 10px; width: 100%;">Go Premium 👑</button>
+                <button id="closeWelcomeBtn" style="width:100%; margin-bottom:10px;">Let's Code!</button>
+                <button id="openPremiumBtnWelcome" style="background: #fbbf24; color: #0f172a; width: 100%;">Go Premium 👑</button>
             </div>
         </div>
     </div>
 
     <div id="premiumModal" class="modal-overlay">
         <div class="modal-content">
-            <h2 id="premiumTitle">Unlock Premium 👑</h2>
-            <p id="premiumDesc">Enter your code for exclusive perks and themes.</p>
+            <h2 id="premiumTitle">Premium Settings 👑</h2>
+            
             <div id="premiumInputArea">
-                <input type="text" id="premiumCodeInput" placeholder="Enter code here..." style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #38bdf8; background: #0f172a; color: white; text-align: center;">
-                <button id="activatePremiumBtn">Activate</button>
+                <p>Enter code for exclusive perks:</p>
+                <input type="text" id="premiumCodeInput" placeholder="Enter code..." style="width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid #38bdf8; background: #0f172a; color: white; text-align: center;">
+                <button id="activatePremiumBtn" style="width:100%;">Activate</button>
             </div>
-            <button id="deactivatePremiumBtn" style="display: none; background: #475569; color: white; width: 100%; margin-top: 10px;">Switch to Normal Version</button>
-            <button id="closePremiumBtn" style="background: transparent; color: #94a3b8; font-size: 0.8rem; border: none; margin-top: 10px; cursor: pointer;">Close</button>
+            
+            <div id="themeSelectorArea" style="display: none; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                <p style="margin-bottom: 10px; font-size: 0.9rem;">Choose Your Style:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <button class="theme-btn" onclick="setTheme('gold')" style="background: #2e1065; color: #fbbf24; border: 1px solid #fbbf24; font-size: 0.7rem;">Midnight Gold</button>
+                    <button class="theme-btn" onclick="setTheme('emerald')" style="background: #064e3b; color: #10b981; border: 1px solid #10b981; font-size: 0.7rem;">Cyber Emerald</button>
+                    <button class="theme-btn" onclick="setTheme('ruby')" style="background: #450a0a; color: #ef4444; border: 1px solid #ef4444; font-size: 0.7rem;">Royal Ruby</button>
+                    <button class="theme-btn" onclick="setTheme('frost')" style="background: #1e293b; color: #f1f5f9; border: 1px solid #f1f5f9; font-size: 0.7rem;">Frost Silver</button>
+                </div>
+                <button id="deactivatePremiumBtn" style="background: transparent; color: #94a3b8; width: 100%; margin-top: 15px; font-size: 0.75rem; border: 1px solid #475569;">Switch to Normal</button>
+            </div>
+
+            <button id="closePremiumBtn" style="background: transparent; color: #94a3b8; border: none; margin-top: 10px; cursor: pointer;">Close</button>
         </div>
     </div>
 
     <div class="glass-container">
         <header style="position: relative;">
-            <button id="mainPremiumToggle" title="Premium Settings" style="position: absolute; right: 0; top: 0; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; width: auto; padding: 5px;">👑</button>
+            <button id="mainPremiumToggle" style="position: absolute; right: 0; top: 0; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; z-index: 10;">👑</button>
             <img src="CodeBuddy-AI-Logo.jpg" alt="Logo" class="main-logo">
             <h1>CodeBuddy <span>AI</span></h1>
         </header>
 
         <main>
-            <div class="input-wrapper">
-                <textarea id="codeInput" placeholder="// Paste code or describe your mission..."></textarea>
-            </div>
+            <textarea id="codeInput" placeholder="// Paste code or describe mission..."></textarea>
             
             <div class="controls">
                 <select id="actionSelect">
                     <option value="explain">Explain code</option>
                     <option value="debug">Find bugs</option>
-                    <option value="refactor">Refactor code</option>
                     <option value="generate">Generate code</option>
                 </select>
                 <div class="button-group">
@@ -66,13 +75,7 @@
                 </div>
             </div>
 
-            <div class="history-section">
-                <div class="history-header">
-                    <small>Recent Missions:</small>
-                    <button id="deleteHistoryBtn">Delete All</button>
-                </div>
-                <div id="historyList" class="history-list"></div>
-            </div>
+            <div id="historyList" class="history-list"></div>
 
             <div class="output-area">
                 <div class="output-header">
@@ -83,6 +86,6 @@
             </div>
         </main>
     </div>
-    <script src="script.js?v=10"></script>
+    <script src="script.js?v=12"></script>
 </body>
-</html>
+                    </html>
