@@ -1,6 +1,6 @@
 const API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const PREMIUM_KEY = "Goblinekkk";
-const MASTER_KEY = "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"; // Sem vlož svůj Groq API klíč
+const MASTER_KEY = "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"; // Sem vlož svůj Groq API klíč
 
 window.setTheme = function(t) {
     document.body.classList.remove('premium-gold', 'premium-emerald', 'premium-ruby', 'premium-frost', 'premium-cyber', 'premium-ocean', 'premium-hacker', 'premium-sunset');
